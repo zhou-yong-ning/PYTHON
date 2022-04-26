@@ -258,5 +258,42 @@ table.cell(3,4).text = "插曲"
 document.save('ceshi.docx')  #保存文档
 ```
 
+### 11.综合练习二
 
+```python
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.oxml.ns import qn
+from docx.shared import RGBColor
+from docx.shared import Inches
+
+document = Document()
+p = document.add_paragraph()
+run = p.add_run('python爬虫与数据分析')  # 使用add_run添加文字
+run.font.size = Pt(26)  # 字体大小设置，和word里面的字号相对应，小一
+p.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # 段落文字居中设置
+run.bold = True  # 字体加粗
+document.styles['Normal'].font.name = '宋体'  # 设置字体
+document.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+run.font.color.rgb = RGBColor(255, 0, 0)  # 颜色设置，这里是用RGB颜色
+
+pic = document.add_picture('哆啦A梦.jpg', width=Inches(5))  # 添加图片，设置宽度（长度等比例放大缩小）
+last_paragraph = document.paragraphs[-1]
+last_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # 图片居中设置
+
+p = document.add_paragraph()
+run = p.add_run('python简介')
+run.font.size = Pt(22)  # 二号
+run.bold = True
+
+p = document.add_paragraph()
+run = p.add_run(
+    'Python由荷兰数学和计算机科学研究学会的吉多·范罗苏姆 于1990 年代初设计，作为一门叫做ABC语言的替代品。 Python提供了高效的高级数据结构，还能简单有效地面向对象编程。Python语法和动态类型，以及解释型语言的本质，使它成为多数平台上写脚本和快速开发应用的编程语言， 随着版本的不断更新和语言新功能的添加，逐渐被用于独立的、大型项目的开发。')
+p_format = p.paragraph_format
+p_format.first_line_indent = Inches(0.2)  # 首行缩进
+
+document.save('ceshi.docx')  # 保存文档
+
+```
 
