@@ -45,8 +45,8 @@ tag_denglu.click()
 while True:
     if sws.presence_of_element_located((By.ID, "TANGRAM__PSP_11__userName")):
         sleep(1)
-        driver.find_element(By.ID, 'TANGRAM__PSP_11__userName').send_keys('17680247572')
-        driver.find_element(By.ID, 'TANGRAM__PSP_11__password').send_keys('zyn19991127')
+        driver.find_element(By.ID, 'TANGRAM__PSP_11__userName').send_keys('176****7572')
+        driver.find_element(By.ID, 'TANGRAM__PSP_11__password').send_keys('***********')
         break
 denglu_btn = driver.find_element(By.ID, "TANGRAM__PSP_11__submit")
 denglu_btn.click()
