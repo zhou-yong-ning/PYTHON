@@ -137,7 +137,6 @@ from selenium import webdriver
 driver = webdriver.Chrome()
 driver.get('http://www.huya.com')
 
-"""
 方法1 Failed
 提前获取元素，循环元素，页面出现刷新，已获取元素失效，会报错提示找不到元素（即使元素不变）
 """
@@ -147,11 +146,9 @@ driver.get('http://www.huya.com')
      print(f'{i}:\t{item[i]}')
      driver.implicitly_wait(5)
      item = driver.find_elements_by_xpath('//*[@id="duya-header"]/div/div/div[1]/div[i+1]')
-"""
+
 方法2
 获取一组元素的长度，循环个数，每次循环都重新获取元素，防止失效（当页面刷新元素失效/改变可尝试此方法）
-
-"""
 # 获取一组元素的长度
 counts = len(driver.find_elements_by_class_name('hy-nav-item'))
 # 循环个数，range函数从0递增
