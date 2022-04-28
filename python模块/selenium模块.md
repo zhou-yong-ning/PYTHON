@@ -55,6 +55,8 @@ driver.quit()
 # 回退与前进
 browser.back()
 browser.forward()
+# 刷新
+driver.refresh()
 
 # from selenium.webdriver.support import expected_conditions as EC
 # driver.find_element_by_id('kw').is_displayed()  # 查看元素是否可见
