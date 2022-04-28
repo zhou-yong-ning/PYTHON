@@ -127,4 +127,41 @@ deselect_by_value(value) # 通过value属性取消选择
 deselect_by_index(index) # 通过index取消选择
 deselect_by_visible_text(text) # 通过text取消选择 
 ```
+## Selenium 获取一组元素然后循环点击
 
+```python
+# -*- coding:utf-8 -*
+import time
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('http://www.huya.com')
+
+"""
+方法1 Failed
+提前获取元素，循环元素，页面出现刷新，已获取元素失效，会报错提示找不到元素（即使元素不变）
+"""
+ item = driver.find_elements_by_class_name('hy-nav-item')
+ for i in range(len(item)):
+     item[i].click()
+     print(f'{i}:\t{item[i]}')
+     driver.implicitly_wait(5)
+     item = driver.find_elements_by_xpath('//*[@id="duya-header"]/div/div/div[1]/div[i+1]')
+"""
+方法2
+获取一组元素的长度，循环个数，每次循环都重新获取元素，防止失效（当页面刷新元素失效/改变可尝试此方法）
+
+"""
+# 获取一组元素的长度
+counts = len(driver.find_elements_by_class_name('hy-nav-item'))
+# 循环个数，range函数从0递增
+for i in range(counts):
+    # 每次循环，都重新获取元素，防止元素失效或者页面刷新后元素改变了
+    item = driver.find_elements_by_xpath('//*[@id="duya-header"]/div/div/div[1]/div')
+    # 循环点击获取的元素
+    item[i].click()
+    # 打印每次获取元素，调试用
+    print(f'{i}:\t{item[i]}')
+    # 隐式等待，避免页面加载慢获取元素失败导致点击失效
+    driver.implicitly_wait(5)
+```
