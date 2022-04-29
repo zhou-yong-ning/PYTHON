@@ -18,7 +18,7 @@ bro = webdriver.Chrome(service=s)
 # 让浏览器发起一个指定url请求
 bro.get('http://scxk.nmpa.gov.cn:81/xk/')
 # 如果定位的标签位于iframe中则需要通过以下操作定位
-bro.switch_to.iframe('')#切换标签定位的作用域，''内复制网页元素id
+# bro.switch_to.iframe('')#切换标签定位的作用域，''内复制网页元素id，后面定位标签
 # 获取浏览器当前页面源码数据
 page_text = bro.page_source
 # xpath解析获取指定数据
