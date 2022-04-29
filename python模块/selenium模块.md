@@ -37,7 +37,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from time import sleep
-from selenium.webdriver.support import expected_conditions as sws
+from selenium.webdriver.support import expected_conditions as EC
 
 s = Service('chromedriver.exe')
 driver = webdriver.Chrome(service=s)
@@ -45,7 +45,7 @@ driver.get("https://www.baidu.com/")
 tag_denglu = driver.find_element(By.ID, "s-top-loginbtn")
 tag_denglu.click()
 while True:
-    if sws.presence_of_element_located((By.ID, "TANGRAM__PSP_11__userName")):
+    if EC.presence_of_element_located((By.ID, "TANGRAM__PSP_11__userName")):
         sleep(1)
         driver.find_element(By.ID, 'TANGRAM__PSP_11__userName').send_keys('176****7572')
         driver.find_element(By.ID, 'TANGRAM__PSP_11__password').send_keys('***********')
