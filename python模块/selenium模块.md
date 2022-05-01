@@ -44,12 +44,19 @@ driver = webdriver.Chrome(service=s)
 driver.get("https://www.baidu.com/")
 tag_denglu = driver.find_element(By.ID, "s-top-loginbtn")
 tag_denglu.click()
+
+# 方法一
 while True:
     if EC.presence_of_element_located((By.ID, "TANGRAM__PSP_11__userName")):
         sleep(1)
         driver.find_element(By.ID, 'TANGRAM__PSP_11__userName').send_keys('176****7572')
         driver.find_element(By.ID, 'TANGRAM__PSP_11__password').send_keys('***********')
         break
+# 方法二
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "TANGRAM__PSP_11__userName")))
+driver.find_element(By.ID, 'TANGRAM__PSP_11__userName').send_keys('176****7572')
+driver.find_element(By.ID, 'TANGRAM__PSP_11__password').send_keys('***********')
+
 denglu_btn = driver.find_element(By.ID, "TANGRAM__PSP_11__submit")
 denglu_btn.click()
 sleep(5.1)
@@ -124,8 +131,12 @@ selector.select_by_value("210103")  # 通过value属性值进行选择
 selector.select_by_visible_text("篮球运动员")  # 通过标签显示的text进行选择 
 
 # 主要使用select_by_index()的时候，如果option中有index属性，会优先通过index属性选择
-3）Select类还提供了一些用于取消选中的方法
-
+selector.select_by_visible_text("")  # 该方法可用于取消选择 
+# Select类还提供了一些用于取消选中的方法
+# 注意：
+# 反选（deselect）取消操作只适用于添加了multiple的下拉框，否则会报错
+# raise NotImplementedError("You may only deselect options of a multi-select")
+# NotImplementedError: You may only deselect options of a multi-select
 deselect_all()  # 取消全选
 deselect_by_value(value) # 通过value属性取消选择
 deselect_by_index(index) # 通过index取消选择
@@ -134,34 +145,36 @@ deselect_by_visible_text(text) # 通过text取消选择
 ## Selenium 获取一组元素然后循环点击
 
 ```python
-# -*- coding:utf-8 -*
-import time
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from lxml import etree
+from selenium.webdriver.common.by import By
+from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-driver = webdriver.Chrome()
-driver.get('http://www.huya.com')
-
-#方法1 Failed
-#提前获取元素，循环元素，页面出现刷新，已获取元素失效，会报错提示找不到元素（即使元素不变）
-item = driver.find_elements_by_class_name('hy-nav-item')
-for i in range(len(item)):
-    item[i].click()
-    print(f'{i}:\t{item[i]}')
-    driver.implicitly_wait(5)
-    item = driver.find_elements_by_xpath('//*[@id="duya-header"]/div/div/div[1]/div[i+1]')
-
-#方法2
-#获取一组元素的长度，循环个数，每次循环都重新获取元素，防止失效（当页面刷新元素失效/改变可尝试此方法）
-# 获取一组元素的长度
-counts = len(driver.find_elements_by_class_name('hy-nav-item'))
+s = Service("chromedriver.exe")
+Browser = webdriver.Chrome(service=s)
+Browser.get("https://pic.netbian.com/")
+# 显式等待
+WebDriverWait(Browser, 10).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/div/a")))
+item = Browser.find_elements(By.XPATH,'//*[@id="main"]/div[3]/ul/li')
 # 循环个数，range函数从0递增
-for i in range(counts):
+for i in range(len(item)-1):
     # 每次循环，都重新获取元素，防止元素失效或者页面刷新后元素改变了
-    item = driver.find_elements_by_xpath('//*[@id="duya-header"]/div/div/div[1]/div')
+    item = Browser.find_elements(By.XPATH,'//*[@id="main"]/div[3]/ul/li')
     # 循环点击获取的元素
     item[i].click()
-    # 打印每次获取元素，调试用
-    print(f'{i}:\t{item[i]}')
-    # 隐式等待，避免页面加载慢获取元素失败导致点击失效
-    driver.implicitly_wait(5)
+    sleep(0.5)
+    # # 打印每次获取元素，调试用
+    # print(f'{i}:\t{item[i]}')  
+    windows = Browser.window_handles  # 获取所有窗口句柄列表
+    Browser.switch_to.window(windows[1]) # browser切换至列表对应的页面
+    page_text = Browser.page_source
+    tree = etree.HTML(page_text)
+    name = tree.xpath('//*[@id="main"]/div[2]/div[1]/div[1]/h1/text()')
+    print(name)
+    Browser.close() # 关闭当前页面
+    windows = Browser.window_handles  # 获取所有窗口句柄列表
+    Browser.switch_to.window(windows[0]) # browser切换至列表对应的页面
 ```
