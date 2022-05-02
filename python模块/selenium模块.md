@@ -142,6 +142,78 @@ deselect_by_value(value) # 通过value属性取消选择
 deselect_by_index(index) # 通过index取消选择
 deselect_by_visible_text(text) # 通过text取消选择 
 ```
+
+```python
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from time import sleep
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+# from selenium.webdriver.support.ui import Select
+# 或者直接从select导入
+from selenium.webdriver.support.select import Select
+
+s = Service("chromedriver.exe")
+Browser = webdriver.Chrome(service=s)
+Browser.get("http://sahitest.com/demo/selectTest.htm")
+# 等待网页指定元素出现（显式等待）
+WebDriverWait(Browser, 10).until(EC.presence_of_element_located((By.ID,"s1Id")))
+print('加载完成')
+Browser.get('http://sahitest.com/demo/selectTest.htm')
+# 实例化Select
+s1 = Select(Browser.find_element(By.ID,'s1Id'))
+# # 选择第二个选项o1
+# s1.select_by_index(2)
+s2 = Select(Browser.find_element(By.ID,'s2Id'))
+# # 选择第二个选项o1
+# s2.select_by_index(1)
+s3 = Select(Browser.find_element(By.ID,'s3Id'))
+# # 选择第二个选项o1
+# s3.select_by_index(3)
+
+# 查看选择框的默认值/打印当前下拉框选择值
+print (s1.first_selected_option.text)
+print (s2.first_selected_option.text)
+print (s3.first_selected_option.text)
+# 实例化Select
+s1 = Select(Browser.find_element(By.ID,'s1Id'))
+# 选择第二个选项o1
+s1.select_by_visible_text('o1')
+s2 = Select(Browser.find_element(By.ID,'s2Id'))
+# 选择第二个选项o1
+s2.select_by_visible_text('o3')
+s3 = Select(Browser.find_element(By.ID,'s3Id'))
+# 选择第二个选项o1
+s3.select_by_visible_text('o3')
+print (s1.first_selected_option.text)
+print (s2.first_selected_option.text)
+print (s3.first_selected_option.text)
+# 注意：
+# 反选（deselect）取消操作只适用于添加了multiple的下拉框，否则会报错
+# raise NotImplementedError("You may only deselect options of a multi-select")
+# NotImplementedError: You may only deselect options of a multi-select
+# 实例化Select
+sleep(2)
+s1 = Select(Browser.find_element(By.ID,'s1Id'))
+# 通过文本选择方式清除选项
+s1.select_by_visible_text('')
+s2 = Select(Browser.find_element(By.ID,'s2Id'))
+# 清除选项
+s2.select_by_visible_text('')
+s3 = Select(Browser.find_element(By.ID,'s3Id'))
+# 清除选项
+s3.select_by_visible_text('')
+# 打印当前下拉框选择值
+print (s1.first_selected_option.text)
+print (s2.first_selected_option.text)
+print (s3.first_selected_option.text)
+sleep(3)
+```
 ## Selenium 获取一组元素然后循环点击
 
 ```python
