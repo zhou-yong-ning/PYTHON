@@ -7,4 +7,4 @@ print(jpg_)
 for i in jpg_:
     newname = i.split('.')[0]+'村级管理线成果图.jpg'
     print(newname)
-    os.rename(_path + "\\" + i,_path + "\\" + newname)
+    os.rename(_path + "\\" + i,_path + "\\" + newname) #(旧文件名路径，新文件名路径)
