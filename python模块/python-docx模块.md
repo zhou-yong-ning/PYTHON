@@ -26,36 +26,45 @@ for i in range(len(file.paragraphs)):
 ```python
 from docx import Document
 import os
-import csv
 import pandas as pd
+from win32com import client as wc
+from time import sleep
 
-_path = "C:\\Users\\zhou\\Desktop\\新建文件夹"   #指定文件路径为
-path = os.listdir(_path)                    #读取路径中的文件名，导出到列表
-docx_path = [x for x in path if x.endswith(".docx")]    #读取后缀为“.docx”的文件名
-word_list = []  #建立空列表，存放每个word的数据字典
-for i in docx_path:
-    file = Document(i)  #调用Document函数，读取文件
-    biaoge = file.tables[0]     #获取文件中的表格集，获取表格集中的第一个表格
-    word_dict = {}      #建立空字典，存放word数据
-    word_dict["name"] = biaoge.cell(0, 1).text #读取第一行第二列的值
-    word_dict["sex"] = biaoge.cell(0, 3).text   #读取第一行第四列的值
-    word_dict["age"] = biaoge.cell(0, 5).text   #读取第一行第六列的值
-    word_dict["hunyin"] = biaoge.cell(1, 2).text    #读取第二行第三列的值
-    word_list.append(word_dict)  #往列表添加数据字典
-
-with open("数据汇总.csv", "w", newline="") as f:
-    headers = ["name", "sex", "age", "hunyin"]  #建立列表，作为列表标题
-    #像常规编写器一样操作的对象，但将字典映射到输出行，在传递给字典值的顺序按键的writerow()方法被写入到文件f
-    write = csv.DictWriter(f, fieldnames=headers)   
-    write.writeheader()     #写标头
-    for i in word_list:
-        write.writerow(i)   #循环写行
-        print("提取成功")
-#以下方式写入也可以
-'''
+# 获取当前.py文件所在绝对路径
+Current_Folder_path = os.getcwd()
+# 在当前文件夹内新建名为”New Folder“的文件夹
+if not os.path.exists(Current_Folder_path + '\\New Folder'):
+    os.mkdir(Current_Folder_path + '\\New Folder')
+# 获取指定文件夹内所有文件
+file_list = os.listdir(Current_Folder_path)
+# (以下注释部分可以将doc转为docx)
+# # 利用推导式获取所有后缀为”.doc“的文件
+# doc_list = [a for a in file_list if a.endswith('.doc')]
+# word = wc.Dispatch("Word.Application")  # 打开word应用程序
+# for A in doc_list:
+#     word = wc.Dispatch("Word.Application")  # 打开word应用程序
+#     doc = word.Documents.Open(Current_Folder_path + "\\" + A)  # 打开word文件,必需绝对路径
+#     A = A.replace('.doc', '.docx')
+#     doc.SaveAs(Current_Folder_path + "\\" + A, 12)  # 另存为后缀为".docx"的文件，其中参数12指docx文件,必需绝对路径
+#     doc.Close()  # 关闭原来word文件
+#     print(A + "转换完成")
+# word.Quit()  # 关闭原来word应用程序
+# 利用推导式获取所有后缀为”.docx“的文件
+docx_list = [a for a in file_list if a.endswith('.docx')]
+word_list = []  # 建立空列表，存放每个word的数据字典
+for i in docx_list:
+    file = Document(i)  # 调用Document函数，读取文件
+    table = file.tables[-1]  # 获取文件中的表格集，获取表格集中的第一个表格
+    word_dict = {
+        "A": table.cell(1, 5).text,
+        "B": table.cell(9, 3).text,
+        "C": table.cell(12, 2).text,
+        "D": table.cell(15, 4).text
+    }
+    word_list.append(word_dict)  # 往列表添加数据字典
+    print(i + "提取完成")
 df = pd.DataFrame(word_list)
-df.to_csv("数据汇总1.csv")
-'''
+df.to_csv(Current_Folder_path + "\\New Folder\\" + "数据汇总.csv")
 
 ```
 
