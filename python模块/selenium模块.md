@@ -214,6 +214,20 @@ print (s2.first_selected_option.text)
 print (s3.first_selected_option.text)
 sleep(3)
 ```
+## Selenium判断单选框是否选中
+
+```python
+# 首先判断该元素有没有选中，可以用is_selected方法来获取该元素有没有被选中
+input=driver.find_element_by_css_selector( 'input[value=car]')
+selected=input.is_selected()  #判断是否选中
+
+if selected:
+    print('已经选中了,无需点击')
+else:
+    print('没有选中，需要点击')
+    input.click()
+
+```
 ## Selenium 获取一组元素然后循环点击
 
 ```python
