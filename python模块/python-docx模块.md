@@ -78,9 +78,6 @@ from time import sleep
 cell_list = input("请输入需要提取的信息:")
 cell_list = cell_list.split("/")
 print(cell_list)
-a = int(cell_list[0])
-print(type(a))
-print(a)
 # 获取当前.py文件所在绝对路径
 Current_Folder_path = os.getcwd()
 # 在当前文件夹内新建名为”New Folder“的文件夹
