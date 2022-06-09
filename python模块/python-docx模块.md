@@ -67,7 +67,60 @@ df = pd.DataFrame(word_list)
 df.to_csv(Current_Folder_path + "\\New Folder\\" + "数据汇总.csv")
 
 ```
+### 实战提取简历信息（交互式）
+```python
+from docx import Document
+import os
+import pandas as pd
+from win32com import client as wc
+from time import sleep
 
+cell_list = input("请输入需要提取的信息:")
+cell_list = cell_list.split("/")
+print(cell_list)
+a = int(cell_list[0])
+print(type(a))
+print(a)
+# 获取当前.py文件所在绝对路径
+Current_Folder_path = os.getcwd()
+# 在当前文件夹内新建名为”New Folder“的文件夹
+if not os.path.exists(Current_Folder_path + '\\New Folder'):
+    os.mkdir(Current_Folder_path + '\\New Folder')
+# 获取指定文件夹内所有文件
+file_list = os.listdir(Current_Folder_path)
+# (以下注释部分可以将doc转为docx)
+# 利用推导式获取所有后缀为”.doc“的文件
+doc_list = [a for a in file_list if a.endswith('.doc')]
+try:
+    word = wc.Dispatch("Word.Application")  # 打开word应用程序
+except:
+    word = wc.Dispatch("kwps.Application")  # 打开wps应用程序
+for A in doc_list:
+    doc = word.Documents.Open(Current_Folder_path + "\\" + A)  # 打开word文件,必需绝对路径
+    A = A.replace('.doc', '.docx')
+    doc.SaveAs(Current_Folder_path + "\\" + A, 12)  # 另存为后缀为".docx"的文件，其中参数12指docx文件,必需绝对路径
+    doc.Close()  # 关闭原来word文件
+    print(A + "转换完成")
+word.Quit()  # 关闭原来word应用程序
+# 利用推导式获取所有后缀为”.docx“的文件
+docx_list = [a for a in file_list if a.endswith('.docx')]
+word_list = []  # 建立空列表，存放每个word的数据字典
+for i in docx_list:
+    word_list.append(i)
+    file = Document(i)  # 调用Document函数，读取文件
+    table = file.tables[int(cell_list[0])]  # 获取文件中的表格集，获取表格集中的第n个表格
+    table_list = []
+    for j in range(1, len(cell_list)):
+        k = cell_list[j].split(',')
+        a = int(k[0])
+        b = int(k[1])
+        table_list.append(table.cell(a, b).text)
+    word_list.append(table_list)  # 往列表添加数据字典
+    print(i + "提取完成")
+df = pd.DataFrame(word_list)
+df.to_excel(Current_Folder_path + "\\New Folder\\" + "数据汇总.xlsx")
+print("数据提取完成")
+```
 ## 制作word文本
 
 ### 1.创建文档
