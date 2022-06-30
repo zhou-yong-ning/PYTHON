@@ -201,3 +201,90 @@ for i in range(1, 8, 2):
     print(cell_value)
 ```
 
+## 三、获取一个区域的单元格
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+cell_range = worksheet['A1:H26']
+# 按行选定区域
+# cell_range = worksheet['1:26']
+# 按列选定区域
+# cell_range = worksheet['A:H']
+for row_data in cell_range:
+    for cell_data in row_data:
+        print(cell_data.value)
+```
+
+```python
+# 使用list(worksheet.values)
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+print(list(worksheet.values))
+```
+
+```python
+# .iter_rows(min_row=最低行数，max_row=最高行数，min_col=最低列数，max_col=最高列数)
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for row_data in worksheet.iter_rows(min_row=1, max_row=26, max_col=8, min_col=1):
+    for cell_data in row_data:
+        print(cell_data.value)
+```
+
+```python
+# .iter_cols(min_row=最低行数，max_row=最高行数，min_col=最低列数，max_col=最高列数)
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for col_data in worksheet.iter_cols(min_row=1, max_row=26, max_col=8, min_col=1):
+    for cell_data in col_data:
+        print(cell_data.value)
+
+```
+
+## 四、依次获取每一行每一列的值
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for row_data in worksheet.rows:
+    for cell_data in row_data:
+        print(cell_data.value)
+for col_data in worksheet.columns:
+    for cell_data in col_data:
+        print(cell_data.value)
+```
+
+## 五、字母与数字间的转换
+
+```python
+import openpyxl as vb
+# 根据列的数字返回字母
+numtoletter = vb.utils.get_column_letter(2)
+print(numtoletter)
+# 根据字母返回列的数字
+lettertonum= vb.utils.column_index_from_string('D')
+print(lettertonum)
+```
+
+## 六、读取数据
+
+```python
+
+```
+
