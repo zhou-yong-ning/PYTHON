@@ -285,6 +285,135 @@ print(lettertonum)
 ## 六、读取数据
 
 ```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+max_row = worksheet.max_row
+max_col = worksheet.max_column
+A1_value = worksheet['A1'].value
+A1_value2 = worksheet.cell(1, 1).value
+A1_col = worksheet['A1'].column
+A1_row = worksheet['A1'].row
+# 获取C列所有数据
+list1 = []
+for i in worksheet['C']:
+    list1.append(i.value)
+# 获取第1行所有数据
+list2 = []
+for i in worksheet[1]:
+    list2.append(i.value)
+# 获取所有数据
+list3 = []
+for row in worksheet.rows:
+    for cell in row:
+        list3.append(cell.value)
+print(list3)
+```
+
+## 七、写入数据
+
+```python
+# 在指定单元格写入数据
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+worksheet.cell(1,1, value='zhou')
+worksheet['A1'] = 'yong'
+workbook.save(file_path)
+```
+
+```python
+# 在最后一行写入数据
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+data_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+worksheet.append(data_list)
+workbook.save(file_path)
+```
+
+```python
+# 在某一区域内插入值
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for row in worksheet['A1:B3']:
+    for cell in row:
+        cell.value = 'ning'
+workbook.save(file_path)
+```
+
+## 八、行、列的插入与删除
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+# 插入列
+worksheet.insert_cols(1, 2)  # 其中1指插入的位置，2指插入的行数
+worksheet.insert_rows(1, 2)  # 其中1指插入的位置，2指插入的行数
+worksheet.delete_cols(1, 2)  # 其中1指删除的位置，2指删除的行数
+worksheet.delete_rows(1, 2)  # 其中1指删除的位置，2指删除的行数
+workbook.save(file_path)
+```
+
+## 九、移动单元格
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+# "A1:C3"为需要移动的单元格，rows和cols正数为向下或向右、负数为向左或向上
+worksheet.move_range("A1:C3", rows=10, cols=10)
+workbook.save(file_path)
+```
+
+## 十、冻结单元格
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+worksheet.freeze_panes = "C3"
+workbook.save(file_path)
+```
+
+## 阶段练习
+
+### 求固定单元格数值和
+
+```python
+# 求固定区域数值和
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+list0 = []
+for sheet in workbook.worksheets:
+    list0.append(sheet['A1'].value)
+print(sum(list0))
+# 或者
+print(sum(sheet['A1'].value for sheet in workbook.worksheets))
+```
+
+### 按行或者列求和
+
+```python
 
 ```
 
