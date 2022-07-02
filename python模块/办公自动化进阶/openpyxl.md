@@ -414,6 +414,96 @@ print(sum(sheet['A1'].value for sheet in workbook.worksheets))
 ### 按行或者列求和
 
 ```python
+# 按行求和
+import openpyxl as vb
 
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for row in list(worksheet.rows)[1:]:
+    data_list = [cell.value for cell in row]
+    print(sum(data_list))
 ```
+
+```python
+# 按列求和
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for col in list(worksheet.columns)[1:]:
+    data_list = [cell.value for cell in col]
+    print(sum(data_list))
+```
+
+### 和大于30标记为优秀
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for col in worksheet.iter_cols(min_row=1, min_col=2):
+    data_list = [cell.value for cell in col[:-1]]
+    print(sum(data_list))
+    if sum(data_list) > 30:
+        col[-1].value = '优秀'
+workbook.save(file_path)
+```
+
+### 筛选和大于40的列
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+for row in range(worksheet.max_row, 0,-1):
+    data_list =[cell.value for cell in worksheet[row]]
+    if sum(data_list) <= 20:
+        print(sum(data_list))
+        worksheet.delete_rows(row)
+workbook.save(file_path)
+```
+
+## 十一、合并与取消合并单元格
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+worksheet.merge_cells('B3:F5')  # 合并
+worksheet.unmerge_cells('B3:F5')  # 取消合并
+# worksheet.merge_cells(start_row=起始行号，start_column=起始列号,end_row=结束行号,end_column=结束列号) 
+workbook.save(file_path)
+```
+
+## 十二、使用公式与注意事项
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path)
+worksheet = workbook['Sheet1']
+worksheet['F1'] = '=sum(A1:E1)'
+workbook.save(file_path)
+```
+
+```python
+# 注意读取时会直接读取公式，所以要进行如下设置
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+print(worksheet['F1'].value)
+```
+
+[**关于"data_only"踩过的坑**](https://www.cnblogs.com/vhills/p/8327918.html )
 
