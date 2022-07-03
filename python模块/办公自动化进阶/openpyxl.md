@@ -507,3 +507,123 @@ print(worksheet['F1'].value)
 
 [**关于"data_only"踩过的坑**](https://www.cnblogs.com/vhills/p/8327918.html )
 
+## 十三、按行与列分组
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+# 列分组
+worksheet.column_dimensions.group('A','D', hidden=True)
+# 行分组
+worksheet.row_dimensions.group(1,5, hidden=True)
+workbook.save(file_path)
+```
+
+## 十四、给单元格添加批注
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+pz = vb.comments.Comment('这里写批注','周永宁')
+worksheet['A1'].comment = pz
+workbook.save(file_path)
+```
+
+# 04、装饰部分
+
+## 一、字体Font
+
+**Font(name='Calibri', size=11, bold=False,italic=False,vertAlign=None, underline='none',strike=False, color='FF000000')**
+
+**参数解读：**
+
+**name：字体名称，注意中文字体前面加u**
+
+**size：字号大小**
+
+**bold：True（加粗）/ False（不加粗）**
+
+**italic：True（倾斜）/ False（不倾斜）**
+
+**vertAlign：'None'（默认）/ 'superscript'（上标）/ 'subscript'（下标）**
+
+**underline：'None'（默认）/ 'single'（单下划线）/ 'double'（双下划线）/ 'singleAccounting'（会计用单下划线）/ 'doubleAccounting'（会计用双下划线）**
+
+**strike：'True'（显示删除线）/ 'False'（不显示删除线）**
+
+**color：字体的颜色**
+
+[RGB转HEX](https://www.sioe.cn/yingyong/yanse-rgb-16/)
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+font1 = vb.styles.Font(name=u'微软雅黑', bold=True, italic=True, size=72)
+worksheet['A1'].font = font1
+workbook.save(file_path)
+```
+
+## 二、对齐Alignment
+
+**Alignment(horizontal='general',vertical='bottom', text_rotation=0, wrap_text=False, shrink_to_fit=False, indent=0)**
+
+**horizontal：'general'（常规）/ 'justify'（两端对齐）/ 'right'（靠右）/ 'centerContinuous'（跨列居中）/ 'distributed'（分散对齐）/ 'fill'（填充）/ 'center'（居中）/ 'left'（靠左）**
+
+**vertical：'center'（垂直居中）/ 'top'（靠上）/ 'bottom'（靠下）/ 'justify'（两端对齐）/ 'distributed'（分散对齐）** 
+
+**text_rotation：指定文本旋转角度**
+
+**wrap_text：是否自动换行**
+
+**shrink_to_fit：是否缩小字体填充**
+
+**indent：指定缩进**
+
+## 三、边框Side
+
+**Side(style=连线样式,color=边线颜色)**
+
+**Border(left=左边线样式,right=右连线样式,top=上边线样式,bottom=下边线样式)**
+
+**style参数的种类： 'double, ‘mediumDashDotDot’, ‘slantDashDot’,‘dashDotDot’,‘dotted’,‘hair’, 'mediumDashed, ‘dashed’, ‘dashDot’, ‘thin’,‘mediumDashDot’,‘medium’, 'thick’**
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+side = vb.styles.Side(style='thin',color='FF000000')
+border = vb.styles.Border(left=side,right=side,top=side,bottom=side)
+worksheet['B2'].border = border
+workbook.save(file_path)
+```
+
+## 四、设置行高与列宽
+
+```python
+import openpyxl as vb
+
+file_path = r"C:\Users\zhou\Desktop\笔记\示例.xlsx"
+workbook = vb.load_workbook(file_path, data_only=True)
+worksheet = workbook['Sheet1']
+worksheet.row_dimensions[1].height = 200
+worksheet.column_dimensions['B'].width = 100
+workbook.save(file_path)
+```
+
+## 五、**填充** **PatternFill**
+
+**PatternFill(fill_type=None, start_color='FFFFFFFF', end_color='FF000000')**
+
+**fill_type：'None'（不填充）/ 'solid'（实心填充）/ 'darkGray'（75%灰色）'mediumGray'（50%灰色）/ 'lightGray'（25%灰色）/ 'gray125'（12.5%灰色）/ 'gray0625'（6.25%灰色）/ 'darkHorizontal'（水平条纹）/ 'darkVertical'（垂直条纹）/ 'darkDown'（逆对角线条纹）/ 'darkUp'（对角线条纹）/ 'darkGrid'（对角线剖面线）/ 'darkTrellis'（粗对角线剖面线）/ 'lightHorizontal'（细水平条纹）/ 'lightVertical'（细垂直条纹）/ 'lightDown'（细逆对角线条纹）/ 'lightUp'（细对角线条纹）/ 'lightGrid'（细水平剖面线）/ 'lightTrellis'（细对角线剖面线）**
+
