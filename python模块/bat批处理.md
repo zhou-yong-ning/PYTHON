@@ -1,4 +1,4 @@
-# 1.批量去除文件名中的括号：
+## 1.批量去除文件名中的括号：
 
 ```bat
 @Echo Off&SetLocal ENABLEDELAYEDEXPANSION
@@ -12,7 +12,7 @@ FOR %%a in (*) do (
 exit
 ```
 
-# 2.批量去除文件名中的空格：
+## 2.批量去除文件名中的空格：
 
 ```bat
 @echo off&setlocal enabledelayedexpansion
@@ -25,7 +25,7 @@ for /f "delims=" %%i in ('dir /s/b *.*') do (
 exit
 ```
 
-# 3.批量重命名：
+## 3.批量重命名：
 
 ```bat
 ren	旧.后缀	新.后缀
@@ -33,7 +33,7 @@ ren	旧.jpg	新.jpg
 ren	旧.docx	新.docx
 ```
 
-# 4.删除文件
+## 4.删除文件
 
 删除当前目录下的test.txt文件
 
@@ -53,26 +53,33 @@ del ..\test.txt
 del .\TEST\*.o
 ```
 
-# 5.复制文件：支持多个文件操作，同时支持上级及下级文件路径
+## 5.复制文件：支持多个文件操作，同时支持上级及下级文件路径
 
 ```bat
 copy file1.txt 文件夹1
 copy file2.txt 文件夹2
 ```
 
-# 6.创建文件夹
+## 6.移动文件与文件夹：支持多个文件操作，同时支持上级及下级文件路径
+
+```Bat
+move 文件夹1 文件夹2
+move file2.txt 文件夹2
+```
+
+## 7.创建文件夹
 
 ```bat
 md 文件夹
 ```
 
-# 7.当前目录创建a.txt文件
+## 8.当前目录创建a.txt文件
 
 ```bat
 cd.>a.txt
 ```
 
-# 8.提取文件名
+## 9.提取文件名
 
 提取当前目录下扩展名为mp3的文件名，输出到`mp3文件名.txt`
 
@@ -91,4 +98,3 @@ dir .\深度睡眠\*.mp3 /b>mp3文件名.txt
 ```bat
 dir c:\*.* >a.txt
 ```
-
