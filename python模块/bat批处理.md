@@ -99,6 +99,7 @@ dir .\深度睡眠\*.mp3 /b>mp3文件名.txt
 dir c:\*.* >a.txt
 ```
 提取当前目录以及子目录下的文件夹名
+
 ```bat
 dir/a/s/b>LIST.xlsx
 ```
