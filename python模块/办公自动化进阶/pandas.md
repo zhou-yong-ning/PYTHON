@@ -1,6 +1,6 @@
-# 一、读取数据
+# 读取数据
 
-## 1、读取txt与csv文件
+## 读取txt与csv文件
 
 | **数据类型**      | **说明**         | **读取方法**      |
 | ----------------- | ---------------- | ----------------- |
@@ -11,7 +11,7 @@
 
 **切记：如果分隔符不止一种，使用正则表达式sep='\s+'**
 
-### 1.1读取csv文件
+### 读取csv文件
 
 ```python
 import pandas as pd
@@ -33,7 +33,7 @@ print(df.index)
 print(df.dtypes)
 ```
 
-### 1.2**自己制定分隔符、列名**
+### **自己制定分隔符、列名**
 
 ```python
 import pandas as pd
@@ -53,3 +53,96 @@ print(df)
 | **skiprows**  | **从文件开始处，需要跳过的行数或行号列表**                   |
 | **encoding**  | **文本编码，例如utf-8**                                      |
 | **nrows**     | **从文件开头处读入的行数**  **nrows=3**                      |
+
+# to_excel详细参数
+
+```python
+# to_excel方法定义：
+
+DataFrame.to_excel(path, 
+                   sheet_name='Sheet1',
+                   na_rep='',
+                   float_format=None, 
+                   columns=None, 
+                   header=True, 
+                   index=True, 	     
+                   index_label=None, 
+                   startrow=0, 
+                   startcol=0, 
+                   engine=None, 
+                   merge_cells=True, 
+                   encoding=None, 
+                   inf_rep='inf', 
+                   verbose=True, 
+                   freeze_panes=None)
+```
+
+**path: 字符串或ExcelWriter 对象，文件路径或现有的ExcelWriter**
+
+**sheet_name :字符串,默认“Sheet1”，将包含DataFrame的表的名称。**
+
+**na_rep : 字符串,默认‘ ’缺失数据表示方式**
+
+**float_format : 字符串,默认None，格式化浮点数的字符串**
+
+**columns : 序列,可选，要编写的列**
+
+**header : 布尔或字符串列表，默认为Ture。写出列名。如果给定字符串列表，则假定它是列名称的别名。**
+
+**index :布尔,默认的Ture写行名（索引）**
+
+**index_label : 字符串或序列，默认为None。如果需要，可以使用索引列的列标签。如果没有给出，标题和索引为true，则使用索引名称。如果数据文件使用多索引，则需使用序列。**
+
+**startrow :左上角的单元格行来转储数据框**
+
+**startcol :左上角的单元格列转储数据帧**
+
+**engine : 字符串,默认没有使用写引擎 - 您也可以通过选项io.excel.xlsx.writer，io.excel.xls.writer和io.excel.xlsm.writer进行设置。**
+
+**merge_cells : 布尔,默认为Ture编码生成的excel文件。 只有xlwt需要，其他编写者本地支持unicode。**
+
+**inf_rep : 字符串,默认“正”无穷大的表示(在Excel中不存在无穷大的本地表示)**
+
+**freeze_panes : 整数的元组(长度2)，默认为None。**
+
+# **read_excel**详细参数
+
+pandas.read_excel接口用于读取excel格式数据文件，由于它使用非常频繁，功能强大参数众多，
+
+所以在这里专门做详细介绍，我们在使用过程中可以查阅。
+
+## 语法
+
+```python
+import pandas as pd
+
+pd.read_excel(path, 
+              sheet_name=0，
+              header=0,
+              names=None,
+              index_col=None,
+              usecols=None,
+              squeeze=False,
+              dtype=None,
+              engine=None,
+              converters=None，
+              true_values=None,
+              false_values=None，
+              skiprows=None,
+              nrows=None,
+              na_values=None,
+              keep_default_na=True，
+              verbose=False,
+              parse_dates=False， 
+              date_parser=None,
+              thousands=None，
+              comment=None,
+              skipfooter=0,
+              convert_float=True，
+              mangle_dupe_cols=True，
+              **kwds)
+```
+
+![image-20220710104614035](C:\Users\zhou\AppData\Roaming\Typora\typora-user-images\image-20220710104614035.png)
+
+![image-20220710104730288](C:\Users\zhou\AppData\Roaming\Typora\typora-user-images\image-20220710104730288.png)
