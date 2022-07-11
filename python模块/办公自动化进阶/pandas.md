@@ -143,6 +143,21 @@ pd.read_excel(path,
               **kwds)
 ```
 
-![image-20220710104614035](C:\Users\zhou\AppData\Roaming\Typora\typora-user-images\image-20220710104614035.png)
+### sheet_name
 
-![image-20220710104730288](C:\Users\zhou\AppData\Roaming\Typora\typora-user-images\image-20220710104730288.png)
+```python
+pd.read_excel( 'tmp.xlsx' , sheet_name=1) #第二个sheet
+pd.read_excel( 'tmp.xlsx', sheet_name= '总结表') #按sheet的名字
+#取第一个、第二个、名为Sheet5 的，返回一个df组成的字典
+dfs = pd.read_excel('tmp.xlsx',sheet_name=[0，1，"Sheet5"])
+dfs = pd.read_excel('tmp.xlsx', sheet_name=None） #所有的sheetdfs [ "Sheet5' ]#读取时按sheet名
+```
+
+### header
+
+```python
+pd .read_excel( 'tmp.xlsx', header=None)#不设表头
+pd.read_excel( 'tmp.xlsx ', header=2)#第三行为表头
+pd.read_excel( 'tmp.xlsx' , header=[0，1])#两层表头，多层索引
+```
+
