@@ -108,3 +108,27 @@ print(df)
 # print(df)
 ```
 
+## 13.提取popularity列最大值所在行
+
+```python
+df1 = df[df['popularity'] == df['popularity'].max()]
+print(df1)
+```
+
+## 14.删除最后一行数据
+
+```python
+df1 = df.drop([len(df)-1])
+print(df1)
+```
+
+## 15.添加一行数据['Perl',6.6]
+
+```python
+row={'grammer':'Perl','popularity':6.6}
+df0 = pd.DataFrame([row])
+df1 = pd.concat([df,df0],ignore_index=True,join="inner")
+print(df1)
+```
+
+16.
