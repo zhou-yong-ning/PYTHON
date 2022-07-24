@@ -131,4 +131,10 @@ df1 = pd.concat([df,df0],ignore_index=True,join="inner")
 print(df1)
 ```
 
-16.
+## 16.对数据按照"popularity"列值的大小进行排序
+
+```python
+df.sort_values("popularity", ascending=False, inplace=True) # ascending=True 代表升序
+print(df)
+```
+
