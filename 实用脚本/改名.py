@@ -7,7 +7,13 @@ file_list = os.listdir(Current_Folder_path)
 # 利用推导式获取所有后缀为”.doc“的文件
 docx_list = [a for a in file_list if a.endswith('.docx')]
 for i in docx_list:
-    newname = i.split('.')[0] + "修改.docx"
-    # newname = newname.replace("改","") + '.docx'
-    print(newname)
-    os.rename(Current_Folder_path + "\\" + i, Current_Folder_path + "\\" + newname)  # (旧文件名路径，新文件名路径)
+    # 去除空格
+    # newname = i.replace(' ', '')
+    # 去除括号
+    # newname = i.replace('(', '')
+    # newname = newname.replace(')', '')
+    # 替换文档内任意值
+    newname = i.replace('-', '')
+    # newname = i.replace(' ', '')
+    # (旧文件名路径，新文件名路径)
+    os.rename(os.path.join(Current_Folder_path, i), os.path.join(Current_Folder_path, newname))
