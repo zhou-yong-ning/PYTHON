@@ -8,8 +8,8 @@ def extract_pdf(doc_path):
     first_page = file.pages[0]
     second_page = file.pages[1]
     # 提取该页面表格类
-    col_values1 = first_page.extract_table()
-    col_values2 = second_page.extract_table()
+    col_values1 = first_page.extract_tables()[0]
+    col_values2 = second_page.extract_tables()[0]
     # 提取页面文本类
     txt_values1 = first_page.extract_text()
     # 提取字符串
