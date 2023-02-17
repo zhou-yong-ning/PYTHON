@@ -46,3 +46,4 @@ if __name__ == '__main__':
             Arr.append(p)
     for k in Arr:
         k.join()
+    print('分表完成')
