@@ -31,6 +31,7 @@ if __name__ == '__main__':
     print('文件读取成功')
     # 获取某一列唯一值
     listType = df[col].unique()
+    print(listType)
     # 多进程循环筛选导出
     Processnum = 6  # 指定进程数
     listnum = len(listType) // Processnum + 1  # 计算每个进程任务
@@ -39,10 +40,12 @@ if __name__ == '__main__':
         if j + listnum <= len(listType):
             p = Process(target=dxcfor, args=(df, listType[j:j + listnum], col))
             p.start()
+            print(p,"进程开始")
             Arr.append(p)
         else:
             p = Process(target=dxcfor, args=(df, listType[j:len(listType) + 1], col))
             p.start()
+            print(p,"进程开始")
             Arr.append(p)
     for k in Arr:
         k.join()
