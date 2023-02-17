@@ -9,6 +9,7 @@ from multiprocessing import Process
 def dxcfor(dfbiao, list, col):
     Current_Folder_path = os.getcwd()
     for i in list:
+        i = str(i)
         df0 = dfbiao.loc[(dfbiao[col] == i)]
         # 根据指定列进行升排序
         # df0.sort_values(by=['承包方编码'], ascending=True, inplace=True)
