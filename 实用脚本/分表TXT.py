@@ -2,6 +2,11 @@ import pandas as pd
 import os
 from multiprocessing import Process
 
+
+# 大型xlsx文件可以先导入mdb数据库在导出以逗号为分隔符的txt
+# 大型xlsx文件可以先导入mdb数据库在导出以逗号为分隔符的txt
+# 大型xlsx文件可以先导入mdb数据库在导出以逗号为分隔符的txt
+
 # 文本文件编码格式必需为utf-8
 # 文本文件编码格式必需为utf-8
 # 文本文件编码格式必需为utf-8
