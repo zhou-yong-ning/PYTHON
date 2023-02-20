@@ -33,7 +33,7 @@ if __name__ == '__main__':
     file_list1 = [a for a in file_list0 if a.endswith('.txt')]
     print('正在读取文件')
     df = pd.read_csv(os.path.join(Current_Folder_path, file_list1[0]), sep=',', encoding='UTF-8', dtype='object')  # 逗号分隔
-    # df = pd.read_csv(os.path.join(Current_Folder_path, file_list1[0]), sep='\t', encoding='UTF-8', dtype='object')  # 制表符分隔
+    # df = pd.read_table(os.path.join(Current_Folder_path, file_list1[0]), sep='\t', encoding='UTF-8', dtype='object')  # 制表符分隔
     print('文件读取成功')
     # 获取某一列唯一值
     listType = df[col].unique()
