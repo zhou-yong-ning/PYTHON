@@ -20,5 +20,6 @@ for file_name in file_xlsx:
         continue
 print('正在写入中......')
 concat_df.to_excel(os.path.join(Current_Folder_path,'合并表.xlsx'),index=False)
-# concat_df.to_csv(os.path.join(Current_Folder_path, '合并表.txt'), sep='\t', index=False)  # 制表符
+# concat_df.to_csv(os.path.join(Current_Folder_path, '合并表.txt'), sep='\t', encoding='ANSI',index=False)  # 制表符分隔
+# concat_df.to_csv(os.path.join(Current_Folder_path, '合并表.txt'), sep=',', encoding='ANSI',index=False)  # 逗号分隔
 print('写入完成')
