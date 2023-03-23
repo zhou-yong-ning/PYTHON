@@ -2,6 +2,10 @@ import os
 import openpyxl
 from openpyxl.styles import Alignment
 
+# 可用excel方方格子批量改
+# 可用excel方方格子批量改
+# 可用excel方方格子批量改
+
 def total_amount(worksheet):
     ws = worksheet
     # 从第二行开始
