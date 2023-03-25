@@ -20,7 +20,9 @@ if __name__ == '__main__':
 import sqlite3
 import pandas as pd
 
+# 直接在当前文件夹内创建数据库
 conn = sqlite3.connect('test.db')
+# 指定sql查询语句
 sql = "select * from ncjtjjzzzong"
 # 读取数据表
 df = pd.read_sql_query(sql=sql, con=conn)
