@@ -15,3 +15,13 @@ if __name__ == '__main__':
     print(df)
 
 # 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+
+# sqlite3数据库连接测试
+import sqlite3
+import pandas as pd
+
+conn = sqlite3.connect('test.db')
+sql = "select * from ncjtjjzzzong"
+# 读取数据表
+df = pd.read_sql_query(sql=sql, con=conn)
+print(df)
