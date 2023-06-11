@@ -13,6 +13,7 @@ for file_name in file_xlsx:
     try:
         print('正在合并',file_name)
         df = pd.read_excel(os.path.join(Current_Folder_path,file_name),dtype='object')
+        df['文件名'] = file_name
         # 合并
         concat_df =pd.concat([concat_df,df])
     except:
